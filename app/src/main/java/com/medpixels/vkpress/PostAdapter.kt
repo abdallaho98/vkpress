@@ -6,20 +6,26 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toBitmap
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.objects.FirebaseVisionObjectDetectorOptions
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.aliexpress_layout.*
+import kotlinx.android.synthetic.main.aliexpress_layout.view.*
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.TimeUnit
@@ -89,6 +95,25 @@ class PostAdapter (private var items : ArrayList<Post>, private val context: Act
                             btn.id = id.hashCode()
                             btn.setBackgroundResource(R.drawable.clickable)
                             holder.constraint.addView(btn,params)
+                            btn.setOnClickListener {
+                                val mBottomSheetDialog = BottomSheetDialog(context)
+                                val sheetView = context.layoutInflater.inflate(R.layout.aliexpress_layout, null)
+                                mBottomSheetDialog.setContentView(sheetView)
+                                mBottomSheetDialog.show()
+                                sheetView.rootView.setBackgroundResource(android.R.color.transparent)
+                                //listView
+                                sheetView.products.layoutManager = LinearLayoutManager(context , LinearLayoutManager.HORIZONTAL , false)
+                                val allProducts = ArrayList<Product>()
+                                allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
+                                allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
+                                allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
+                                allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
+                                val adapter = ProductAdapter(allProducts, context)
+                                sheetView.products.adapter = adapter
+                                adapter.notifyDataSetChanged()
+                                mBottomSheetDialog.setCanceledOnTouchOutside(true)
+                                mBottomSheetDialog.setCancelable(true)
+                            }
                         }
                     }
                     .addOnFailureListener { e ->
