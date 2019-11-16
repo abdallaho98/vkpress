@@ -1,14 +1,34 @@
-package com.esi.pharmacie.adapters
+package com.medpixels.vkpress
 
 import android.app.Activity
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
-import com.medpixels.vkpress.Post
-import com.medpixels.vkpress.R
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
+import com.google.firebase.ml.vision.FirebaseVision
+import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.google.firebase.ml.vision.objects.FirebaseVisionObjectDetectorOptions
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+import java.util.concurrent.ThreadLocalRandom
+import java.util.concurrent.TimeUnit
+import javax.sql.DataSource
+import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 
-class PostAdapter (var items : ArrayList<Post>, val context: Activity) :
+class PostAdapter (private var items : ArrayList<Post>, private val context: Activity) :
     RecyclerView.Adapter<PostViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         return PostViewHolder(LayoutInflater.from(context).inflate(R.layout.post_card, parent, false))
@@ -19,9 +39,90 @@ class PostAdapter (var items : ArrayList<Post>, val context: Activity) :
     fun change (newItems : ArrayList<Post>)  {items.clear() ; items.addAll(newItems)}
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder?.name?.text = items[position]
-        holder?.status?.text = items[position]
+        holder?.name?.text = items[position].fullName
+        holder?.time?.text = ThreadLocalRandom.current().nextInt(1, 10).toString() + " minutes ago"
+        holder?.bottomName?.text = items[position].btnName
+        holder?.nbLikes?.text = items[position].nbLike.toString()
+        holder?.nbComment?.text = items[position].nbComment.toString()
+        holder?.nbVu?.text = items[position].nbVu.toString()
+        holder?.profilePic.clipToOutline = true
+        Glide.with(context).load( items[position].image).centerInside().listener(object : RequestListener<Drawable> {
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: com.bumptech.glide.request.target.Target<Drawable>?,
+                dataSource: com.bumptech.glide.load.DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                Log.e("Nice" , "Nice")
+
+                //detect
+                // Multiple object detection in static images
+                val options = FirebaseVisionObjectDetectorOptions.Builder()
+                    .setDetectorMode(FirebaseVisionObjectDetectorOptions.SINGLE_IMAGE_MODE)
+                    .enableMultipleObjects()
+                    .enableClassification()  // Optional
+                    .build()
+
+                val objectDetector = FirebaseVision.getInstance().getOnDeviceObjectDetector(options)
+
+                val imagee = FirebaseVisionImage.fromBitmap(resource!!.toBitmap())
+
+                objectDetector.processImage(imagee)
+                    .addOnSuccessListener { detectedObjects ->
+                        // Task completed successfully
+                        for (obj in detectedObjects) {
+                            val id = obj.trackingId       // A number that identifies the object across images
+                            val bounds = obj.boundingBox  // The object's position in the image
+                            // If classification was enabled:
+                            val category = obj.classificationCategory
+                            val confidence = obj.classificationConfidence
+                            Log.e("Tags" , bounds.toString())
+                            val cro = (holder?.image as ImageView).drawable
+
+                            val btn = Button(context)
+                            val params = ConstraintLayout.LayoutParams(30.px, 30.px)
+                            params.topToTop = holder?.constraint.id
+                            params.startToStart = holder?.constraint.id
+                            params.marginStart = bounds.exactCenterX().toInt() + 20.px
+                            params.topMargin = bounds.exactCenterY().toInt() + 20.px
+                            btn.id = id.hashCode()
+                            btn.setBackgroundResource(R.drawable.clickable)
+                            holder.constraint.addView(btn,params)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        // Task failed with an exception
+                        // ...
+                        Log.e("Error" , "Error everywhere")
+                    }
+
+                return false
+            }
+
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: com.bumptech.glide.request.target.Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                Log.e("Error" , "Error everywhere")
+                return false
+            }
+        }).into(holder?.image)
+        Glide.with(context).load( items[position].profilePic).centerCrop().into(holder?.profilePic)
+
+
+        /*
+
+           */
 
 
     }
+
+    val Int.dp: Int
+        get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+
+    val Int.px: Int
+        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 }

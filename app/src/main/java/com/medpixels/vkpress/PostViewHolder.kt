@@ -1,4 +1,4 @@
-package com.esi.pharmacie.adapters
+package com.medpixels.vkpress
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -18,4 +18,5 @@ class PostViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     val like = view.like
     val comment = view.comment
     var share = view.share
+    val constraint = view.constraint
 }

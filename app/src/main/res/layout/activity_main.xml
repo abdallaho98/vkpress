@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/constraint"
+    android:background="#EFEFEF"
     tools:context=".MainActivity">
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -18,6 +21,8 @@
 
 
     <ImageView
+        android:scaleType="centerCrop"
+        android:visibility="gone"
         android:id="@+id/crop"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -26,5 +31,12 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:nestedScrollingEnabled="true"
+        android:id="@+id/list_posts"
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
