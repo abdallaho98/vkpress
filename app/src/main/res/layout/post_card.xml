@@ -83,6 +83,7 @@
         />
 
     <TextView
+        android:id="@+id/btnname"
         android:fontFamily="@font/productsansmedium"
         android:layout_marginStart="12dp"
         app:layout_constraintBottom_toBottomOf="@id/accountlogo"
@@ -123,6 +124,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <ImageView
+                android:id="@+id/like"
                 android:tint="#b2b6be"
                 android:src="@drawable/ic_heart_outline"
                 android:layout_width="24dp"
@@ -144,6 +146,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <ImageView
+                android:id="@+id/comment"
                 android:tint="#b2b6be"
                 android:src="@drawable/ic_comment_outline"
                 android:layout_width="24dp"
@@ -165,6 +168,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <ImageView
+                android:id="@+id/share"
                 android:tint="#b2b6be"
                 android:src="@drawable/ic_share_outline"
                 android:layout_width="24dp"
