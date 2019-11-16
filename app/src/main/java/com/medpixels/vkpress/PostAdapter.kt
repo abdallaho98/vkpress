@@ -96,11 +96,12 @@ class PostAdapter (private var items : ArrayList<Post>, private val context: Act
                             btn.setBackgroundResource(R.drawable.clickable)
                             holder.constraint.addView(btn,params)
                             btn.setOnClickListener {
-                                val mBottomSheetDialog = BottomSheetDialog(context)
+                                val mBottomSheetDialog = BottomSheetDialog(context , R.style.BottomSheetDialog)
                                 val sheetView = context.layoutInflater.inflate(R.layout.aliexpress_layout, null)
                                 mBottomSheetDialog.setContentView(sheetView)
                                 mBottomSheetDialog.show()
-                                sheetView.rootView.setBackgroundResource(android.R.color.transparent)
+                                mBottomSheetDialog.window.decorView
+                                    .setBackgroundResource(android.R.color.transparent)
                                 //listView
                                 sheetView.products.layoutManager = LinearLayoutManager(context , LinearLayoutManager.HORIZONTAL , false)
                                 val allProducts = ArrayList<Product>()
