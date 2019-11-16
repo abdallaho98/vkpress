@@ -19,4 +19,5 @@ class PostViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     val comment = view.comment
     var share = view.share
     val constraint = view.constraint
+    val ali = view.aliexpress
 }

@@ -45,6 +45,8 @@ class PostAdapter (private var items : ArrayList<Post>, private val context: Act
     fun change (newItems : ArrayList<Post>)  {items.clear() ; items.addAll(newItems)}
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+        var bool = false
+        var btns = ArrayList<Button>()
         holder?.name?.text = items[position].fullName
         holder?.time?.text = ThreadLocalRandom.current().nextInt(1, 10).toString() + " minutes ago"
         holder?.bottomName?.text = items[position].btnName
@@ -77,28 +79,7 @@ class PostAdapter (private var items : ArrayList<Post>, private val context: Act
                 objectDetector.processImage(imagee)
                     .addOnSuccessListener { detectedObjects ->
                         // Task completed successfully
-                        for (obj in detectedObjects) {
-                            val id = obj.trackingId       // A number that identifies the object across images
-                            val bounds = obj.boundingBox  // The object's position in the image
-                            // If classification was enabled:
-                            val category = obj.classificationCategory
-                            val confidence = obj.classificationConfidence
-                            Log.e("Tags" , bounds.toString())
-                            val cro = (holder?.image as ImageView).drawable
-
-                            val btn = Button(context)
-                            val params = ConstraintLayout.LayoutParams(30.px, 30.px)
-                            params.topToTop = holder?.constraint.id
-                            params.startToStart = holder?.constraint.id
-                            params.marginStart = bounds.exactCenterX().toInt() + 20.px
-                            params.topMargin = bounds.exactCenterY().toInt() + 20.px
-                            btn.id = id.hashCode()
-                            btn.setBackgroundResource(R.drawable.clickable)
-                            holder.constraint.addView(btn,params)
-                            btn.setOnClickListener {
-                                (context as MainActivity).openSuggestions()
-                            }
-                        }
+                        if(detectedObjects.size > 0) holder?.ali.visibility = View.VISIBLE
                     }
                     .addOnFailureListener { e ->
                         // Task failed with an exception
@@ -120,6 +101,74 @@ class PostAdapter (private var items : ArrayList<Post>, private val context: Act
             }
         }).into(holder?.image)
         Glide.with(context).load( items[position].profilePic).centerCrop().into(holder?.profilePic)
+        holder?.ali.setOnClickListener {
+            if(!bool){
+                bool = true
+                val params = holder.ali.layoutParams
+                params.height += 25
+                params.width += 25
+                holder.ali.layoutParams = params
+                //detect
+                // Multiple object detection in static images
+                val options = FirebaseVisionObjectDetectorOptions.Builder()
+                    .setDetectorMode(FirebaseVisionObjectDetectorOptions.SINGLE_IMAGE_MODE)
+                    .enableMultipleObjects()
+                    .enableClassification()  // Optional
+                    .build()
+
+                val objectDetector = FirebaseVision.getInstance().getOnDeviceObjectDetector(options)
+
+                val imagee = FirebaseVisionImage.fromBitmap(holder?.image.drawable!!.toBitmap())
+
+                objectDetector.processImage(imagee)
+                    .addOnSuccessListener { detectedObjects ->
+                        // Task completed successfully
+                        for (obj in detectedObjects) {
+                            val id = obj.trackingId       // A number that identifies the object across images
+                            val bounds = obj.boundingBox  // The object's position in the image
+                            // If classification was enabled:
+                            val category = obj.classificationCategory
+                            val confidence = obj.classificationConfidence
+                            Log.e("Tags" , bounds.toString())
+                            val cro = (holder?.image as ImageView).drawable
+
+                            val btn = Button(context)
+                            val params = ConstraintLayout.LayoutParams(30.px, 30.px)
+                            params.topToTop = holder?.constraint.id
+                            params.startToStart = holder?.constraint.id
+                            params.marginStart = bounds.exactCenterX().toInt() + 20.px
+                            params.topMargin = bounds.exactCenterY().toInt() + 20.px
+                            btn.id = id.hashCode()
+                            btn.setBackgroundResource(R.drawable.clickablefirst)
+                            holder.constraint.addView(btn,params)
+                            btn.setOnClickListener {
+                                val params = btn.layoutParams
+                                params.height += 25
+                                params.width += 25
+                                btn.layoutParams = params
+                                btn.setBackgroundResource(R.drawable.clickable)
+                                (context as MainActivity).openSuggestions(btn.id)
+                            }
+                            btns.add(btn)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        // Task failed with an exception
+                        // ...
+                        Log.e("Error" , "Error everywhere")
+                    }
+            } else {
+                bool = false
+                val params = holder.ali.layoutParams
+                params.height -= 25
+                params.width -= 25
+                holder.ali.layoutParams = params
+                for (btn in btns) holder.constraint.removeView(btn)
+                btns.clear()
+            }
+
+        }
+
 
 
 

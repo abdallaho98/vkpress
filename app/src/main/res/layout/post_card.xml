@@ -72,6 +72,16 @@
         app:layout_constraintTop_toBottomOf="@id/profile_image"
         />
 
+    <ImageView
+        android:id="@+id/aliexpress"
+        android:visibility="invisible"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/image"
+        app:layout_constraintStart_toStartOf="@id/image"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:src="@drawable/oval"/>
+
 
     <ImageView
         android:id="@+id/accountlogo"

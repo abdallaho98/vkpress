@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
+    android:id="@+id/outside"
     android:background="#55000000"
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
