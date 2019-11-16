@@ -5,11 +5,22 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.aliexpress_layout.view.*
 import kotlinx.android.synthetic.main.product_bought.view.*
 import java.util.*
 import kotlin.collections.ArrayList
+import android.R.id.message
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,18 +48,11 @@ class MainActivity : AppCompatActivity() {
 
     fun openAliExpress(product : Product){
         if(mBottomSheetDialogSuggest.isShowing) mBottomSheetDialogSuggest.dismiss()
-        val mBottomSheetDialog = BottomSheetDialog(this , R.style.BottomSheetDialog)
-        val sheetView = layoutInflater.inflate(R.layout.product_bought, null)
-        mBottomSheetDialog.setContentView(sheetView)
-        mBottomSheetDialog.show()
-        mBottomSheetDialog.window.decorView
-            .setBackgroundResource(android.R.color.transparent)
-        Glide.with(this).load( product.image).centerCrop().into(sheetView.image)
-        sheetView.price.text = product.currency + " "+  product.price
-        sheetView.desc.text = product.desc
-        sheetView.back.setOnClickListener { mBottomSheetDialog.dismiss() }
-        mBottomSheetDialog.setCanceledOnTouchOutside(true)
-        mBottomSheetDialog.setCancelable(true)
+        val bundle = Bundle()
+        bundle.putSerializable("product", product)
+        val fragmentt = ProductFragment()
+        fragmentt.arguments = bundle
+        supportFragmentManager.beginTransaction().replace(R.id.fragment , fragmentt , "product").commit()
     }
 
     fun openSuggestions(){
@@ -72,5 +76,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onBackPressed() {
+        if(supportFragmentManager.findFragmentByTag("product") != null){
+            supportFragmentManager.beginTransaction().detach(supportFragmentManager.findFragmentByTag("product")!!).commit()
+        } else {
+            super.onBackPressed()
+        }
+    }
 
 }

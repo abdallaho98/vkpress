@@ -8,6 +8,14 @@
     android:background="#EFEFEF"
     tools:context=".MainActivity">
 
+
+    <FrameLayout
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment"></FrameLayout>
+
     <ImageView
         android:visibility="gone"
         android:id="@+id/image"
@@ -39,9 +47,4 @@
         android:id="@+id/list_posts"
         android:layout_height="match_parent"/>
 
-    <FrameLayout
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fragment"></FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
