@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "326042493805",
+    "firebase_url": "https://vkpress-b1432.firebaseio.com",
+    "project_id": "vkpress-b1432",
+    "storage_bucket": "vkpress-b1432.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326042493805:android:e846b6cea202108e63b064",
+        "android_client_info": {
+          "package_name": "com.medpixels.vkpress"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326042493805-jmtc2o2ag4f7ddskd3thpojk7mbverpe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfIfuJZTuRTTYs3Ehz-1zFCwmFIZuJ1s0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "326042493805-jmtc2o2ag4f7ddskd3thpojk7mbverpe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
