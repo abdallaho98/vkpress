@@ -4,16 +4,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.aliexpress_layout.view.*
+import kotlinx.android.synthetic.main.product_bought.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var mBottomSheetDialogSuggest : BottomSheetDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        mBottomSheetDialogSuggest = BottomSheetDialog(this , R.style.BottomSheetDialog)
 
         list_posts.layoutManager = LinearLayoutManager(this)
         val allPosts = ArrayList<Post>()
@@ -28,6 +34,42 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
+
+    fun openAliExpress(product : Product){
+        if(mBottomSheetDialogSuggest.isShowing) mBottomSheetDialogSuggest.dismiss()
+        val mBottomSheetDialog = BottomSheetDialog(this , R.style.BottomSheetDialog)
+        val sheetView = layoutInflater.inflate(R.layout.product_bought, null)
+        mBottomSheetDialog.setContentView(sheetView)
+        mBottomSheetDialog.show()
+        mBottomSheetDialog.window.decorView
+            .setBackgroundResource(android.R.color.transparent)
+        Glide.with(this).load( product.image).centerCrop().into(sheetView.image)
+        sheetView.price.text = product.currency + " "+  product.price
+        sheetView.desc.text = product.desc
+        sheetView.back.setOnClickListener { mBottomSheetDialog.dismiss() }
+        mBottomSheetDialog.setCanceledOnTouchOutside(true)
+        mBottomSheetDialog.setCancelable(true)
+    }
+
+    fun openSuggestions(){
+        val sheetView = this.layoutInflater.inflate(R.layout.aliexpress_layout, null)
+        mBottomSheetDialogSuggest.setContentView(sheetView)
+        mBottomSheetDialogSuggest.show()
+        mBottomSheetDialogSuggest.window.decorView
+            .setBackgroundResource(android.R.color.transparent)
+        //listView
+        sheetView.products.layoutManager = LinearLayoutManager(this , LinearLayoutManager.HORIZONTAL , false)
+        val allProducts = ArrayList<Product>()
+        allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
+        allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
+        allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
+        allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
+        val adapter = ProductAdapter(allProducts, this)
+        sheetView.products.adapter = adapter
+        adapter.notifyDataSetChanged()
+        mBottomSheetDialogSuggest.setCanceledOnTouchOutside(true)
+        mBottomSheetDialogSuggest.setCancelable(true)
+    }
 
 
 

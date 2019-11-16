@@ -96,24 +96,7 @@ class PostAdapter (private var items : ArrayList<Post>, private val context: Act
                             btn.setBackgroundResource(R.drawable.clickable)
                             holder.constraint.addView(btn,params)
                             btn.setOnClickListener {
-                                val mBottomSheetDialog = BottomSheetDialog(context , R.style.BottomSheetDialog)
-                                val sheetView = context.layoutInflater.inflate(R.layout.aliexpress_layout, null)
-                                mBottomSheetDialog.setContentView(sheetView)
-                                mBottomSheetDialog.show()
-                                mBottomSheetDialog.window.decorView
-                                    .setBackgroundResource(android.R.color.transparent)
-                                //listView
-                                sheetView.products.layoutManager = LinearLayoutManager(context , LinearLayoutManager.HORIZONTAL , false)
-                                val allProducts = ArrayList<Product>()
-                                allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
-                                allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
-                                allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
-                                allProducts.add(Product("Adidas f chbab" , "https://assets.adidas.com/images/w_600,f_auto,q_auto:sensitive,fl_lossy/69721f2e7c934d909168a80e00818569_9366/Chaussure_Stan_Smith_Blanc_M20324_01_standard.jpg" , "50", "US" , 111))
-                                val adapter = ProductAdapter(allProducts, context)
-                                sheetView.products.adapter = adapter
-                                adapter.notifyDataSetChanged()
-                                mBottomSheetDialog.setCanceledOnTouchOutside(true)
-                                mBottomSheetDialog.setCancelable(true)
+                                (context as MainActivity).openSuggestions()
                             }
                         }
                     }
@@ -139,9 +122,6 @@ class PostAdapter (private var items : ArrayList<Post>, private val context: Act
         Glide.with(context).load( items[position].profilePic).centerCrop().into(holder?.profilePic)
 
 
-        /*
-
-           */
 
 
     }

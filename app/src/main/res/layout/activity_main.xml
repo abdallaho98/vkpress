@@ -39,4 +39,9 @@
         android:id="@+id/list_posts"
         android:layout_height="match_parent"/>
 
+    <FrameLayout
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment"></FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toBitmap
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Transition
 import com.bumptech.glide.Glide
@@ -19,10 +20,13 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomViewTarget
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.objects.FirebaseVisionObjectDetectorOptions
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.aliexpress_layout.view.*
+import kotlinx.android.synthetic.main.product_bought.view.*
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.TimeUnit
@@ -48,5 +52,8 @@ class ProductAdapter (private var items : ArrayList<Product>, private val contex
         Glide.with(context)
             .load(items[position].image)
             .into(holder?.image)
+        holder.itemView.setOnClickListener {
+            (context as MainActivity).openAliExpress(items[position])
+        }
     }
 }
