@@ -105,15 +105,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/full_name"
-            app:layout_constraintBottom_toBottomOf="@id/desc"
+            app:layout_constraintBottom_toBottomOf="@id/address"
             />
 
         <TextView
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@id/full_name"
             android:background="@android:color/white"
             android:elevation="0dp"
             android:lines="3"
-            android:id="@+id/desc"
+            android:id="@+id/address"
             android:maxWidth="300dp"
             android:maxLines="3"
             android:paddingHorizontal="16dp"
@@ -129,7 +130,7 @@
         <ImageView
             android:layout_marginTop="8dp"
             android:id="@+id/separator"
-            app:layout_constraintTop_toBottomOf="@id/desc"
+            app:layout_constraintTop_toBottomOf="@id/address"
             android:src="#eaeaea"
             android:layout_width="match_parent"
             android:layout_height="8dp"/>
@@ -182,32 +183,156 @@
             android:layout_marginTop="16dp"
             android:layout_height="8dp"/>
 
+        <ImageView
+            android:id="@+id/market"
+            android:layout_width="24dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_height="24dp"
+            app:layout_constraintTop_toBottomOf="@id/separator2"
+            android:src="@drawable/ic_storefront"/>
+
         <TextView
             android:id="@+id/expedition_slogan"
             android:fontFamily="@font/productsansmedium"
             android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@id/market"
+            android:layout_marginTop="18dp"
             app:layout_constraintTop_toBottomOf="@id/separator2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="#2d2d2d"
-            android:text="Shipping : US $20.79"
+            android:text="Shop market 45632"
             />
 
         <TextView
-            android:id="@+id/reduction_small"
-            android:layout_marginTop="4dp"
+            android:id="@+id/shipping"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
-            app:layout_constraintTop_toBottomOf="@id/expedition_slogan"
+            app:layout_constraintTop_toBottomOf="@id/image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11.2sp"
-            android:textColor="#b6b6b6"
-            android:text="To Finland via AliExpress Standard Shipping"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            android:text="Shipping: US $12"
             />
+        <TextView
+            android:maxLines="1"
+            android:lines="1"
+            android:maxWidth="95dp"
+            android:id="@+id/reduction_small"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/shipping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#b6b6b6"
+            android:text="Note to seller"
+            />
+
+        <EditText
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:textSize="14sp"
+            app:layout_constraintTop_toTopOf="@id/reduction_small"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toEndOf="@id/reduction_small"
+            android:hint="Opt Message Here"
+            android:maxLines="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toTopOf="@id/image"
+            android:id="@+id/lineair"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:gravity="center_horizontal"
+                android:text="Order Confirmation"
+                />
+            <TextView
+                android:id="@+id/price"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:gravity="center_horizontal"
+                android:text="US $49.99"
+                />
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#66000000"
+                    android:gravity="center_horizontal"
+                    android:text="Black, China"
+                    />
+
+                <TextView
+                    android:layout_marginStart="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#66000000"
+                    android:gravity="center_horizontal"
+                    android:text="-"
+                    />
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_marginStart="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_horizontal"
+                    android:text="1"
+                    />
+
+                <TextView
+                    android:backgroundTint="#33000000"
+                    android:background="@drawable/circle"
+                    android:layout_marginStart="32dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:textSize="16sp"
+                    android:textColor="#99000000"
+                    android:gravity="center_horizontal"
+                    android:text="+"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/image"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@android:color/holo_blue_bright"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toBottomOf="@id/market"
+            android:layout_width="84dp"
+            android:layout_height="96dp"/>
 
         <ImageView
             app:layout_constraintBottom_toTopOf="@id/bottom"
