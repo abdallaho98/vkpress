@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             Handler().postDelayed({
                 mBottomSheetDialog.dismiss()
             } , 5000)
-        },5000)
+        },3500)
         dialog.show()
     }
 
