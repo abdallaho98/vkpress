@@ -326,6 +326,7 @@
             </LinearLayout>
         </LinearLayout>
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/image"
             app:layout_constraintStart_toStartOf="parent"
             android:src="@android:color/holo_blue_bright"
@@ -351,6 +352,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/total"
                 android:textStyle="bold"
                 android:fontFamily="@font/productsansmedium"
                 android:layout_marginStart="16dp"

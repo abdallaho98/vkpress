@@ -84,7 +84,9 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        if(supportFragmentManager.findFragmentByTag("product") != null){
+        if(supportFragmentManager.findFragmentByTag("payment") != null){
+            supportFragmentManager.beginTransaction().detach(supportFragmentManager.findFragmentByTag("payment")!!).commit()
+        } else if(supportFragmentManager.findFragmentByTag("product") != null){
             supportFragmentManager.beginTransaction().detach(supportFragmentManager.findFragmentByTag("product")!!).commit()
         } else {
             super.onBackPressed()

@@ -28,6 +28,14 @@ class ProductFragment : Fragment() {
         view.price.text = product.currency + " "+  product.price
         view.desc.text = product.desc
         view.back.setOnClickListener { activity?.onBackPressed() }
+        view.buy_now.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putSerializable("product", product)
+            val fragmentt = PaymentFragment()
+            fragmentt.arguments = bundle
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment , fragmentt , "payment")?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.detach(activity?.supportFragmentManager?.findFragmentByTag("product")!!)?.commit()
+           }
         return view
     }
 
