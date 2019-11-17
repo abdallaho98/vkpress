@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_smoke_detector)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "News"
         mBottomSheetDialogSuggest = BottomSheetDialog(this , R.style.BottomSheetDialog)
 
         list_posts.layoutManager = LinearLayoutManager(this)
