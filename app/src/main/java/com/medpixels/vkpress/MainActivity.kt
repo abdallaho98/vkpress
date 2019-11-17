@@ -12,11 +12,15 @@ import kotlinx.android.synthetic.main.product_bought.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 import android.R.id.message
+import android.content.DialogInterface
 import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Handler
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.loading_view.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -91,6 +95,29 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    fun over(){
+        val builder = AlertDialog.Builder(this,R.style.CustomDialog)
+        val customLayout = layoutInflater.inflate(R.layout.loading_view, null);
+        builder.setView(customLayout)
+        val dialog = builder.create()
+        Handler().postDelayed({
+            dialog.dismiss()
+            val mBottomSheetDialog = BottomSheetDialog(this , R.style.BottomSheetDialog)
+            val sheetView = this.layoutInflater.inflate(R.layout.complete, null)
+            mBottomSheetDialog.setContentView(sheetView)
+            mBottomSheetDialog.show()
+            mBottomSheetDialog.window.decorView
+                .setBackgroundResource(android.R.color.transparent)
+            mBottomSheetDialog.setCanceledOnTouchOutside(false)
+            mBottomSheetDialog.setCancelable(false)
+            supportFragmentManager?.beginTransaction()?.detach(supportFragmentManager?.findFragmentByTag("payment")!!)?.commit()
+            Handler().postDelayed({
+                mBottomSheetDialog.dismiss()
+            } , 5000)
+        },5000)
+        dialog.show()
     }
 
 }

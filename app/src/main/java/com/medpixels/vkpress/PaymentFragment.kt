@@ -29,6 +29,9 @@ class PaymentFragment : Fragment() {
             .load(product.image)
             .into(view.image)
         view.back.setOnClickListener { activity?.onBackPressed() }
+        view.buy_now.setOnClickListener {
+            (activity as MainActivity)?.over()
+        }
         return view
     }
 

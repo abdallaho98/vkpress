@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:elevation="3dp"
+    android:backgroundTint="@android:color/white"
+    android:background="@drawable/card_aliexpress"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_width="match_parent"
+    android:layout_height="328dp">
+    <ImageView
+        android:id="@+id/aliexpress"
+        android:src="@drawable/pngguru_com"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="84dp"
+        android:layout_height="20dp">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/separator"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/aliexpress"
+        android:layout_marginHorizontal="16dp"
+        android:src="#eaeaea"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <ImageView
+        android:id="@+id/ok"
+        android:tint="#00DA5A"
+        android:src="@drawable/ic_check"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <TextView
+        android:id="@+id/py"
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Payment Successful"
+        android:fontFamily="@font/productsansmedium"/>
+
+    <TextView
+        android:id="@+id/ff"
+        android:layout_marginTop="12dp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/py"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Thank you! we've received your payment"
+        android:fontFamily="@font/productsansregular"/>
+    <TextView
+        android:layout_marginTop="12dp"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/ff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:textSize="18sp"
+        android:text="      "
+        android:fontFamily="@font/productsansregular"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
